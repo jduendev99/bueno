@@ -14,7 +14,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 uses: dawidd6/action-send-mail@v2
   with:
-    # mail server settings
     server_address: smtp.gmail.com
     server_port: 465
     # user credentials

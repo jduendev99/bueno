@@ -1,0 +1,39 @@
+name: Send email on pull request
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step is going to pass
+        run: echo Passing step
+        
+      - name: Step is going to fail
+        run: exit 1
+        
+  send-failure-notification:
+    name: notify on failure
+    needs: run-script
+    if: ${{ failure() }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3.7.1
+        with:
+          connection_url: ${{ secrets.MAIL_CONNECTION }}
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "run-script job failed"
+          to: vivekvishalmi@gmail.com
+          from: Github Actions <noreply@github.com>
+          body: |
+            run-script job failed and this mail is to notify you..

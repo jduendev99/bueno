@@ -3,7 +3,7 @@ name: Send Job Logs to Email
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   send_email:
